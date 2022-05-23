@@ -50,7 +50,7 @@ const LoginWrapper = styled.main`
 
 const LeftSection = styled.section`
   height: 100%;
-  background-color: #2e4cca;
+  background-color: var(--COLOR-PRIMARY);
 `;
 
 const Image = styled.img`
@@ -73,9 +73,9 @@ const BackButton = styled.button`
   outline: none;
   border: none;
   border-radius: 4px;
-  color: #293241;
+  color: var(--COLOR-GRAY-600);
   cursor: pointer;
-  background-color: #edf2fb;
+  background-color: var(--COLOR-GRAY-100);
   &:hover {
     font-weight: 500;
   }
@@ -93,12 +93,12 @@ const Form = styled.form`
 
 const SubHeading = styled.p`
   font-size: 0.8rem;
-  color: #6c757d;
+  color: var(--COLOR-GRAY-500);
 `;
 
 const StyledLink = styled(Link)`
   font-size: 1.1em;
   font-weight: 600;
-  color: #3554d1;
+  color: var(--COLOR-PRIMARY);
   text-decoration: underline;
 `;

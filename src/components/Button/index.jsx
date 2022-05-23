@@ -6,16 +6,16 @@ export const Button = styled.button`
     switch (variant) {
       case "primary":
         return css`
-          background-color: #3554d1;
+          background-color: var(--COLOR-PRIMARY);
           &:hover {
-            background-color: #2e4dca;
+            background-color: var(--COLOR-PRIMARY-HOVER);
           }
         `;
       default:
         return css`
-          background-color: #03071e;
+          background-color: var(--COLOR-GRAY-800);
           &:hover {
-            background-color: #171717;
+            background-color: var(--COLOR-GRAY-700);
           }
         `;
     }
@@ -32,7 +32,7 @@ export const Button = styled.button`
   padding-left: 24px;
   padding-right: 24px;
   border-radius: 8px;
-  color: #fff;
+  color: var(--COLOR-LIGHT);
   font-weight: 600;
   border: none;
   cursor: pointer;

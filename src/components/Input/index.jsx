@@ -16,7 +16,7 @@ const InputWrapper = styled.div`
 `;
 
 const InputLabel = styled.label`
-  color: #495057;
+  color: var(--COLOR-GRAY-600);
 `;
 
 const InputField = styled.input`
@@ -26,8 +26,8 @@ const InputField = styled.input`
   padding: 0 0.5em;
   outline: none;
   border-radius: 4px;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--COLOR-GRAY-300);
   &:focus {
-    border: 1px solid #3554d1;
+    border: 1px solid var(--COLOR-PRIMARY);
   }
 `;
