@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
-export function Input({ name, placeholder, type }) {
+export function Input({ name, placeholder, type, value, onChange }) {
   return (
     <InputWrapper>
       <InputLabel htmlFor={name}>{name}</InputLabel>
-      <InputField id={name} placeholder={placeholder} type={type} />
+      <InputField
+        id={name}
+        placeholder={placeholder}
+        type={type}
+        value={value}
+        onChange={onChange}
+      />
     </InputWrapper>
   );
 }

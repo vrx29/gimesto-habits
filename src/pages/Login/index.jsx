@@ -1,10 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { BackIcon } from "../../assets/icons";
 import { Button, Input } from "../../components";
 import hero from "../../assets/backgrounds/authBackground.png";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../features/auth/authSlice";
+import { useEffect, useState } from "react";
 
 export function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const { authToken } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (authToken) {
+      navigate(state.from?.pathname || "/home");
+    }
+  }, [authToken, navigate, state]);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    dispatch(login({ email, password }));
+  };
+
+  function setupTestLogin() {
+    setEmail("testing@gimesto.com");
+    setPassword("testing123");
+  }
   return (
     <LoginWrapper>
       <LeftSection>
@@ -18,16 +43,28 @@ export function Login() {
         <Wrapper>
           <h1>Hi, Welcome Back!</h1>
           <p>Start changing your habits from today.</p>
-          <Form>
+          <Form onSubmit={handleLogin}>
             <Input
               name="Email address"
               type="email"
               placeholder="eg: johndoe@gmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <Input name="Password" type="password" />
-            <Button variant="primary" width="full">
-              Log in
-            </Button>
+            <Input
+              name="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <ButtonContainer>
+              <Button variant="primary" width="full" type="submit">
+                Log in
+              </Button>
+              <Button variant="outline" width="full" onClick={setupTestLogin}>
+                Log in with test credentials
+              </Button>
+            </ButtonContainer>
           </Form>
           <SubHeading>
             Not registered yet?&nbsp;
@@ -49,7 +86,7 @@ const LoginWrapper = styled.main`
 
 const LeftSection = styled.section`
   height: 100%;
-  background-color: var(--COLOR-PRIMARY);
+  background-color: var(--COLOR-PRIMARY-HOVER);
 `;
 
 const Image = styled.img`
@@ -88,6 +125,12 @@ const Wrapper = styled.div`
 
 const Form = styled.form`
   margin: 2rem auto;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
 const SubHeading = styled.p`
