@@ -1,10 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { BackIcon } from "../../assets/icons";
 import { Button, Input } from "../../components";
 import hero from "../../assets/backgrounds/authBackground.png";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { signUp } from "../../features/auth/authSlice";
 
 export function Signup() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { authToken } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (authToken) {
+      navigate("/home");
+    }
+  }, [authToken, navigate]);
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    dispatch(signUp({ firstName, lastName, email, password }));
+  };
   return (
     <LoginWrapper>
       <LeftSection>
@@ -18,15 +39,35 @@ export function Signup() {
         <Wrapper>
           <h1>Get Started by Signing up</h1>
           <p>Create your account and try using it for free.</p>
-          <Form>
-            <Input name="Full name" type="text" placeholder="eg: John Doe" />
+          <Form onSubmit={handleSignUp}>
+            <Input
+              name="First name"
+              type="text"
+              placeholder="eg: John"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <Input
+              name="Last name"
+              type="text"
+              placeholder="eg: Doe"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
             <Input
               name="Email address"
               type="email"
               placeholder="eg: johndoe@gmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <Input name="Password" type="password" />
-            <Button variant="primary" width="full">
+            <Input
+              name="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button variant="primary" width="full" type="submit">
               Create account
             </Button>
           </Form>
@@ -50,7 +91,7 @@ const LoginWrapper = styled.main`
 
 const LeftSection = styled.section`
   height: 100%;
-  background-color: var(--COLOR-PRIMARY);
+  background-color: var(--COLOR-PRIMARY-HOVER);
 `;
 
 const Image = styled.img`
